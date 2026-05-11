@@ -1,4 +1,4 @@
-git# Deployment Flow Diagram
+# Deployment Flow Diagram
 
 ```mermaid
 graph TB
