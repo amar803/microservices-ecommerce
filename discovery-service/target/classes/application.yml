@@ -1,0 +1,26 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: discovery-service
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # This IS the server — do not register with itself or fetch registry
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  server:
+    wait-time-in-ms-when-sync-empty: 0   # Speed up startup in dev
+    enable-self-preservation: false       # Turn off in dev (avoids stale registrations)
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+

@@ -1,0 +1,9 @@
+com\ecommerce\reportservice\messaging\ReportEventListener.class
+com\ecommerce\reportservice\service\ReportService.class
+com\ecommerce\reportservice\service\ReportService$ReportSummary.class
+com\ecommerce\reportservice\ReportServiceApplication.class
+com\ecommerce\reportservice\web\RecordEventRequest.class
+com\ecommerce\reportservice\repository\ReportCounterRepository.class
+com\ecommerce\reportservice\web\GlobalExceptionHandler.class
+com\ecommerce\reportservice\domain\ReportCounterEntity.class
+com\ecommerce\reportservice\web\ReportController.class

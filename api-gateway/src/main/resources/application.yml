@@ -1,0 +1,169 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      # Global CORS – adjust allowed origins for production
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+
+      routes:
+        # ── Auth Service ──────────────────────────────────────────────────────
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/v1/auth/**
+
+        # ── User Service ──────────────────────────────────────────────────────
+        # lb:// tells the gateway to look up "user-service" in Eureka and
+        # round-robin across all registered instances automatically.
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/users/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: user-service-cb
+                fallbackUri: forward:/fallback/users
+
+        # ── Product Service ───────────────────────────────────────────────────
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/v1/products/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: product-service-cb
+                fallbackUri: forward:/fallback/products
+
+        # ── Order Service ─────────────────────────────────────────────────────
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/v1/orders/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: order-service-cb
+                fallbackUri: forward:/fallback/orders
+
+        # ── Inventory Service ─────────────────────────────────────────────────
+        - id: inventory-service
+          uri: lb://inventory-service
+          predicates:
+            - Path=/api/v1/inventory/**
+
+        # ── Payment Service ───────────────────────────────────────────────────
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/v1/payments/**
+
+        # ── Notification Service ──────────────────────────────────────────────
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/v1/notifications/**
+
+        # ── Report Service ────────────────────────────────────────────────────
+        - id: report-service
+          uri: lb://report-service
+          predicates:
+            - Path=/api/v1/reports/**
+
+        # ── Internal actuator pass-through (health/metrics for ops) ───────────
+        - id: auth-service-internal
+          uri: lb://auth-service
+          predicates:
+            - Path=/internal/auth/**
+          filters:
+            - StripPrefix=2
+
+        - id: inventory-service-internal
+          uri: lb://inventory-service
+          predicates:
+            - Path=/internal/inventory/**
+          filters:
+            - StripPrefix=2
+
+        - id: payment-service-internal
+          uri: lb://payment-service
+          predicates:
+            - Path=/internal/payment/**
+          filters:
+            - StripPrefix=2
+
+        - id: notification-service-internal
+          uri: lb://notification-service
+          predicates:
+            - Path=/internal/notification/**
+          filters:
+            - StripPrefix=2
+
+        - id: analytics-service-internal
+          uri: lb://analytics-service
+          predicates:
+            - Path=/internal/analytics/**
+          filters:
+            - StripPrefix=2
+
+        - id: report-service-internal
+          uri: lb://report-service
+          predicates:
+            - Path=/internal/report/**
+          filters:
+            - StripPrefix=2
+
+# ── Eureka Client ─────────────────────────────────────────────────────────────
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    # Fetch from Eureka every 5s (default 30s) – faster instance pickup in dev
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: true
+
+# ── Resilience4j Circuit Breaker ──────────────────────────────────────────────
+resilience4j:
+  circuitbreaker:
+    instances:
+      user-service-cb:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+      product-service-cb:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+      order-service-cb:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+  timelimiter:
+    instances:
+      user-service-cb:
+        timeoutDuration: 3s
+      product-service-cb:
+        timeoutDuration: 3s
+      order-service-cb:
+        timeoutDuration: 3s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus

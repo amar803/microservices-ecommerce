@@ -1,0 +1,14 @@
+com\ecommerce\orderservice\domain\OrderEntity.class
+com\ecommerce\orderservice\service\OrderService$1.class
+com\ecommerce\orderservice\web\CreateOrderRequest.class
+com\ecommerce\orderservice\web\OrderController.class
+com\ecommerce\orderservice\web\CreateOrderItemRequest.class
+com\ecommerce\orderservice\config\HttpClientConfig.class
+com\ecommerce\orderservice\service\OrderWorkflowClient$1.class
+com\ecommerce\orderservice\service\OrderWorkflowClient$2.class
+com\ecommerce\orderservice\web\GlobalExceptionHandler.class
+com\ecommerce\orderservice\repository\OrderRepository.class
+com\ecommerce\orderservice\service\OrderWorkflowClient.class
+com\ecommerce\orderservice\service\OrchestrationException.class
+com\ecommerce\orderservice\OrderServiceApplication.class
+com\ecommerce\orderservice\service\OrderService.class

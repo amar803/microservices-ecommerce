@@ -1,0 +1,10 @@
+com\ecommerce\inventoryservice\repository\InventoryRepository.class
+com\ecommerce\inventoryservice\web\InventoryController.class
+com\ecommerce\inventoryservice\web\ReserveInventoryRequest.class
+com\ecommerce\inventoryservice\domain\InventoryItemEntity.class
+com\ecommerce\inventoryservice\service\InventoryService.class
+com\ecommerce\inventoryservice\web\GlobalExceptionHandler.class
+com\ecommerce\inventoryservice\InventoryServiceApplication.class
+com\ecommerce\inventoryservice\web\InventoryItemView.class
+com\ecommerce\inventoryservice\web\CreateInventoryItemRequest.class
+com\ecommerce\inventoryservice\web\ReleaseInventoryRequest.class
