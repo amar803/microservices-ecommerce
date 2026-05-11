@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: auth-service
+  profiles:
+    default: local
   security:
     oauth2:
       resourceserver:

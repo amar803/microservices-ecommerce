@@ -11,12 +11,20 @@
 
 This repo currently uses defaults in `application.yml` and `docker-compose.yml`.
 
+Profile behavior:
+
+- Default profile is `local` for all services.
+- Set `SPRING_PROFILES_ACTIVE=dev` or `SPRING_PROFILES_ACTIVE=prod` to switch environments.
+
 If you need overrides, set these before startup (optional):
 
-- `SPRING_PROFILES_ACTIVE` (to be verified)
-- `EUREKA_SERVER_URL` (to be verified)
-- `KAFKA_BOOTSTRAP_SERVERS` (to be verified)
-- `DB_URL`, `DB_USERNAME`, `DB_PASSWORD` (to be verified)
+- `SPRING_PROFILES_ACTIVE`
+- `EUREKA_DEFAULT_ZONE`
+- `KAFKA_BOOTSTRAP_SERVERS`
+- `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`
+- `KEYCLOAK_ISSUER_URI`
+- `REDIS_HOST`, `REDIS_PORT`
+- `GATEWAY_RATELIMIT_REPLENISH_RATE`, `GATEWAY_RATELIMIT_BURST_CAPACITY`, `GATEWAY_RATELIMIT_REQUESTED_TOKENS`
 
 ## 3. Start Infrastructure
 
@@ -39,17 +47,17 @@ Start each module in a separate terminal:
 
 ```powershell
 Set-Location "C:\Users\amarj\microservices-ecommerce"
-mvn -pl discovery-service spring-boot:run
-mvn -pl auth-service spring-boot:run
-mvn -pl user-service spring-boot:run
-mvn -pl product-service spring-boot:run
-mvn -pl inventory-service spring-boot:run
-mvn -pl payment-service spring-boot:run
-mvn -pl notification-service spring-boot:run
-mvn -pl report-service spring-boot:run
-mvn -pl order-service spring-boot:run
-mvn -pl analytics-service spring-boot:run
-mvn -pl api-gateway spring-boot:run
+mvn -pl discovery-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl auth-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl user-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl product-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl inventory-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl payment-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl notification-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl report-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl order-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl analytics-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl api-gateway spring-boot:run -Dspring-boot.run.profiles=local
 ```
 
 ## 6. Common URLs
@@ -76,7 +84,29 @@ mvn -pl api-gateway spring-boot:run
 - Analytics: `http://localhost:8089/actuator/health`
 - Report: `http://localhost:8090/actuator/health`
 
-## 8. Troubleshooting
+Readiness/liveness examples:
+
+- Discovery liveness: `http://localhost:8761/actuator/health/liveness`
+- Discovery readiness: `http://localhost:8761/actuator/health/readiness`
+
+## 8. Flyway Baseline Migrations
+
+Flyway is enabled for these services:
+
+- `user-service`
+- `order-service`
+- `payment-service`
+- `inventory-service`
+- `notification-service`
+- `report-service`
+
+Each service includes:
+
+- `src/main/resources/db/migration/V1__baseline.sql`
+
+Each service uses a dedicated Flyway metadata table to avoid collisions in a shared DB.
+
+## 9. Troubleshooting
 
 ### Docker daemon not available
 
@@ -92,6 +122,26 @@ docker compose ps
 
 - Verify dependency containers are up (`docker compose ps`).
 - Check port conflicts on local machine.
+
+### Gateway returns 401/403 unexpectedly
+
+- Check JWT issuer configuration (`KEYCLOAK_ISSUER_URI`).
+- Verify token is valid and signed by configured issuer.
+- `/internal/**` requires `ADMIN` or `SUPPORT` role.
+
+### Gateway rate limit responses (429)
+
+- Redis must be reachable from gateway (`REDIS_HOST`, `REDIS_PORT`).
+- Tune limits via:
+  - `GATEWAY_RATELIMIT_REPLENISH_RATE`
+  - `GATEWAY_RATELIMIT_BURST_CAPACITY`
+  - `GATEWAY_RATELIMIT_REQUESTED_TOKENS`
+
+### Flyway migration startup failures
+
+- Check DB credentials and connectivity.
+- Ensure baseline table names do not collide.
+- Verify migration scripts under `db/migration` are present and valid SQL.
 
 ### Auth service JWT issuer errors
 

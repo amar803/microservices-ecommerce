@@ -58,6 +58,11 @@ Set-Location "C:\Users\amarj\microservices-ecommerce"
 mvn clean install -DskipTests
 ```
 
+Default profile behavior:
+
+- All services default to `local` profile.
+- You can override with `SPRING_PROFILES_ACTIVE=dev` or `SPRING_PROFILES_ACTIVE=prod`.
+
 ## Start Infrastructure (Docker Compose)
 
 ```powershell
@@ -80,18 +85,40 @@ Run each in a separate terminal:
 
 ```powershell
 Set-Location "C:\Users\amarj\microservices-ecommerce"
-mvn -pl discovery-service spring-boot:run
-mvn -pl auth-service spring-boot:run
-mvn -pl user-service spring-boot:run
-mvn -pl product-service spring-boot:run
-mvn -pl inventory-service spring-boot:run
-mvn -pl payment-service spring-boot:run
-mvn -pl notification-service spring-boot:run
-mvn -pl report-service spring-boot:run
-mvn -pl order-service spring-boot:run
-mvn -pl analytics-service spring-boot:run
-mvn -pl api-gateway spring-boot:run
+mvn -pl discovery-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl auth-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl user-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl product-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl inventory-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl payment-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl notification-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl report-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl order-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl analytics-service spring-boot:run -Dspring-boot.run.profiles=local
+mvn -pl api-gateway spring-boot:run -Dspring-boot.run.profiles=local
 ```
+
+## Gateway Security and Rate Limiting
+
+- Gateway validates JWTs as a resource server.
+- Public routes:
+  - `/api/v1/auth/**`
+  - `/actuator/**`
+  - `/fallback/**`
+- Internal routes (`/internal/**`) require role `ADMIN` or `SUPPORT`.
+- Other routes require authentication.
+- Redis-backed rate limiting is enabled on public API routes.
+
+Rate limit environment variables (gateway):
+
+- `GATEWAY_RATELIMIT_REPLENISH_RATE` (default: `20`)
+- `GATEWAY_RATELIMIT_BURST_CAPACITY` (default: `40`)
+- `GATEWAY_RATELIMIT_REQUESTED_TOKENS` (default: `1`)
+
+Correlation ID behavior:
+
+- Gateway propagates `X-Correlation-Id` to downstream services.
+- If absent, gateway generates one and adds it to response headers.
 
 ## Common URLs
 
@@ -115,6 +142,15 @@ Swagger/OpenAPI:
 - **Redis** is configured for user-service support/cache patterns.
 - **Elasticsearch** backs product search use cases.
 - **Keycloak** provides identity/issuer for JWT validation.
+
+## Flyway Migration Notes
+
+- Flyway is enabled for DB-backed services:
+  - `user-service`, `order-service`, `payment-service`, `inventory-service`, `notification-service`, `report-service`
+- Each service has a baseline migration at:
+  - `src/main/resources/db/migration/V1__baseline.sql`
+- Shared database safety:
+  - each service uses a dedicated Flyway history table to avoid conflicts.
 
 ## Repository Structure
 

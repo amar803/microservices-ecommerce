@@ -6,6 +6,7 @@ import com.ecommerce.common.dto.OrderStatus;
 import com.ecommerce.common.dto.PaymentDto;
 import com.ecommerce.common.event.EventEnvelope;
 import com.ecommerce.common.exception.NotFoundException;
+import com.ecommerce.common.messaging.KafkaTopics;
 import com.ecommerce.orderservice.domain.OrderEntity;
 import com.ecommerce.orderservice.repository.OrderRepository;
 import com.ecommerce.orderservice.web.CreateOrderItemRequest;
@@ -132,7 +133,7 @@ public class OrderService {
                 String.valueOf(orderId),
                 order
         );
-        kafkaTemplate.send("orders.events", String.valueOf(orderId), envelope);
+        kafkaTemplate.send(KafkaTopics.ORDERS_EVENTS, String.valueOf(orderId), envelope);
     }
 
     private OrderDto toDto(OrderEntity entity) {

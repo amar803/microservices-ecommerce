@@ -1,8 +1,10 @@
 package com.ecommerce.common.exception;
 
-public class ConflictException extends DomainException {
+import com.ecommerce.common.error.ErrorCode;
+
+public class ConflictException extends BusinessException {
 
     public ConflictException(String message) {
-        super("RESOURCE_CONFLICT", message, 409);
+        super(ErrorCode.RESOURCE_CONFLICT, message);
     }
 }

@@ -1,8 +1,10 @@
 package com.ecommerce.common.exception;
 
-public class ValidationException extends DomainException {
+import com.ecommerce.common.error.ErrorCode;
+
+public class ValidationException extends BusinessException {
 
     public ValidationException(String message) {
-        super("VALIDATION_ERROR", message, 400);
+        super(ErrorCode.VALIDATION_ERROR, message);
     }
 }

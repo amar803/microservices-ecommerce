@@ -1,5 +1,6 @@
 package com.ecommerce.reportservice.messaging;
 
+import com.ecommerce.common.messaging.KafkaTopics;
 import com.ecommerce.reportservice.service.ReportService;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -13,12 +14,12 @@ public class ReportEventListener {
         this.reportService = reportService;
     }
 
-    @KafkaListener(topics = "orders.events", groupId = "report-service")
+    @KafkaListener(topics = KafkaTopics.ORDERS_EVENTS, groupId = "report-service")
     public void onOrderEvent(String payload) {
         reportService.recordEvent("ORDER_EVENT");
     }
 
-    @KafkaListener(topics = "payments.events", groupId = "report-service")
+    @KafkaListener(topics = KafkaTopics.PAYMENTS_EVENTS, groupId = "report-service")
     public void onPaymentEvent(String payload) {
         reportService.recordEvent("PAYMENT_CAPTURED");
     }

@@ -1,8 +1,10 @@
 package com.ecommerce.common.exception;
 
-public class NotFoundException extends DomainException {
+import com.ecommerce.common.error.ErrorCode;
+
+public class NotFoundException extends BusinessException {
 
     public NotFoundException(String message) {
-        super("RESOURCE_NOT_FOUND", message, 404);
+        super(ErrorCode.RESOURCE_NOT_FOUND, message);
     }
 }

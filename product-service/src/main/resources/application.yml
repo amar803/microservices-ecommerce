@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: product-service
+  profiles:
+    default: local
   elasticsearch:
     uris: http://localhost:9200
   cache:

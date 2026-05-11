@@ -6,6 +6,7 @@ import com.ecommerce.common.dto.PaymentDto;
 import com.ecommerce.common.dto.PaymentStatus;
 import com.ecommerce.common.event.EventEnvelope;
 import com.ecommerce.common.exception.NotFoundException;
+import com.ecommerce.common.messaging.KafkaTopics;
 import com.ecommerce.orderservice.domain.OrderEntity;
 import com.ecommerce.orderservice.repository.OrderRepository;
 import com.ecommerce.orderservice.web.CreateOrderItemRequest;
@@ -75,7 +76,7 @@ class OrderServiceTest {
         assertEquals(99L, dto.id());
         assertEquals(new BigDecimal("31.00"), dto.totalAmount());
         assertEquals(OrderStatus.PAID, dto.status());
-        verify(kafkaTemplate).send(eq("orders.events"), eq("99"), any(EventEnvelope.class));
+        verify(kafkaTemplate).send(eq(KafkaTopics.ORDERS_EVENTS), eq("99"), any(EventEnvelope.class));
     }
 
     @Test
