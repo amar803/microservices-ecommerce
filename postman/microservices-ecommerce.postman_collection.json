@@ -1,0 +1,113 @@
+{
+  "info": {
+    "name": "microservices-ecommerce",
+    "_postman_id": "d2f6f4db-8f3f-4a76-9dbf-1d6cc2fb0d61",
+    "description": "Placeholder collection for microservices e-commerce APIs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Gateway - Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{gatewayUrl}}/actuator/health"
+      }
+    },
+    {
+      "name": "Discovery - Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{discoveryUrl}}/actuator/health"
+      }
+    },
+    {
+      "name": "Product - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sku\": \"SKU-101\",\n  \"name\": \"Sample Product\",\n  \"description\": \"Placeholder product\",\n  \"price\": 49.99\n}"
+        },
+        "url": "{{gatewayUrl}}/api/v1/products"
+      }
+    },
+    {
+      "name": "Product - Get by SKU",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{gatewayUrl}}/api/v1/products/{{sku}}"
+      }
+    },
+    {
+      "name": "Inventory - Upsert Item",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"productId\": 101,\n  \"sku\": \"SKU-101\",\n  \"availableQuantity\": 100\n}"
+        },
+        "url": "{{gatewayUrl}}/api/v1/inventory/items"
+      }
+    },
+    {
+      "name": "Order - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"items\": [\n    {\n      \"productId\": 101,\n      \"sku\": \"SKU-101\",\n      \"quantity\": 1,\n      \"unitPrice\": 49.99\n    }\n  ]\n}"
+        },
+        "url": "{{gatewayUrl}}/api/v1/orders"
+      }
+    },
+    {
+      "name": "Order - Get by Id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{gatewayUrl}}/api/v1/orders/{{orderId}}"
+      }
+    },
+    {
+      "name": "Payment - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"orderId\": 1,\n  \"amount\": 49.99,\n  \"currency\": \"USD\",\n  \"idempotencyKey\": \"pay-1\"\n}"
+        },
+        "url": "{{gatewayUrl}}/api/v1/payments"
+      }
+    },
+    {
+      "name": "Auth - Introspect (to be verified token)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"token\": \"{{jwtToken}}\"\n}"
+        },
+        "url": "{{gatewayUrl}}/api/v1/auth/introspect"
+      }
+    }
+  ]
+}
+

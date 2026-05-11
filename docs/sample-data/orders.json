@@ -1,0 +1,21 @@
+[
+  {
+    "id": 5001,
+    "userId": 1,
+    "items": [
+      { "productId": 101, "sku": "SKU-101", "quantity": 2, "unitPrice": 24.99 }
+    ],
+    "totalAmount": 49.98,
+    "status": "PAID"
+  },
+  {
+    "id": 5002,
+    "userId": 2,
+    "items": [
+      { "productId": 202, "sku": "SKU-202", "quantity": 1, "unitPrice": 79.99 }
+    ],
+    "totalAmount": 79.99,
+    "status": "CREATED"
+  }
+]
+

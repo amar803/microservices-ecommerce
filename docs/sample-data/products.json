@@ -1,0 +1,24 @@
+[
+  {
+    "sku": "SKU-101",
+    "name": "Wireless Mouse",
+    "description": "Ergonomic 2.4GHz wireless mouse",
+    "price": 24.99,
+    "category": "Electronics"
+  },
+  {
+    "sku": "SKU-202",
+    "name": "Mechanical Keyboard",
+    "description": "RGB backlit blue-switch keyboard",
+    "price": 79.99,
+    "category": "Electronics"
+  },
+  {
+    "sku": "SKU-303",
+    "name": "Water Bottle",
+    "description": "Insulated stainless steel bottle 750ml",
+    "price": 19.5,
+    "category": "Home"
+  }
+]
+

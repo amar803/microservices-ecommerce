@@ -1,7 +1,0 @@
-com\ecommerce\userservice\domain\UserEntity.class
-com\ecommerce\userservice\UserServiceApplication.class
-com\ecommerce\userservice\repository\UserRepository.class
-com\ecommerce\userservice\service\UserService.class
-com\ecommerce\userservice\web\GlobalExceptionHandler.class
-com\ecommerce\userservice\web\CreateUserRequest.class
-com\ecommerce\userservice\web\UserController.class

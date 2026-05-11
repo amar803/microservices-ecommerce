@@ -1,0 +1,21 @@
+[
+  {
+    "productId": 101,
+    "sku": "SKU-101",
+    "availableQuantity": 250,
+    "reservedQuantity": 10
+  },
+  {
+    "productId": 202,
+    "sku": "SKU-202",
+    "availableQuantity": 100,
+    "reservedQuantity": 5
+  },
+  {
+    "productId": 303,
+    "sku": "SKU-303",
+    "availableQuantity": 500,
+    "reservedQuantity": 0
+  }
+]
+

@@ -1,8 +1,0 @@
-C:\Users\amarj\microservices-ecommerce\report-service\src\main\java\com\ecommerce\reportservice\domain\ReportCounterEntity.java
-C:\Users\amarj\microservices-ecommerce\report-service\src\main\java\com\ecommerce\reportservice\messaging\ReportEventListener.java
-C:\Users\amarj\microservices-ecommerce\report-service\src\main\java\com\ecommerce\reportservice\ReportServiceApplication.java
-C:\Users\amarj\microservices-ecommerce\report-service\src\main\java\com\ecommerce\reportservice\repository\ReportCounterRepository.java
-C:\Users\amarj\microservices-ecommerce\report-service\src\main\java\com\ecommerce\reportservice\service\ReportService.java
-C:\Users\amarj\microservices-ecommerce\report-service\src\main\java\com\ecommerce\reportservice\web\GlobalExceptionHandler.java
-C:\Users\amarj\microservices-ecommerce\report-service\src\main\java\com\ecommerce\reportservice\web\RecordEventRequest.java
-C:\Users\amarj\microservices-ecommerce\report-service\src\main\java\com\ecommerce\reportservice\web\ReportController.java

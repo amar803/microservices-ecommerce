@@ -1,0 +1,19 @@
+[
+  {
+    "id": 9001,
+    "orderId": 5001,
+    "amount": 49.98,
+    "currency": "USD",
+    "status": "CAPTURED",
+    "idempotencyKey": "pay-5001"
+  },
+  {
+    "id": 9002,
+    "orderId": 5002,
+    "amount": 79.99,
+    "currency": "USD",
+    "status": "AUTHORIZED",
+    "idempotencyKey": "pay-5002"
+  }
+]
+

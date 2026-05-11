@@ -1,7 +1,0 @@
-com\ecommerce\productservice\service\ProductService.class
-com\ecommerce\productservice\web\ProductController.class
-com\ecommerce\productservice\ProductServiceApplication.class
-com\ecommerce\productservice\domain\ProductDocument.class
-com\ecommerce\productservice\repository\ProductRepository.class
-com\ecommerce\productservice\web\CreateProductRequest.class
-com\ecommerce\productservice\web\GlobalExceptionHandler.class

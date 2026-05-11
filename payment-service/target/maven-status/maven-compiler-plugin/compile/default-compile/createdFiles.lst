@@ -1,7 +1,0 @@
-com\ecommerce\paymentservice\PaymentServiceApplication.class
-com\ecommerce\paymentservice\repository\PaymentRepository.class
-com\ecommerce\paymentservice\service\PaymentService.class
-com\ecommerce\paymentservice\web\GlobalExceptionHandler.class
-com\ecommerce\paymentservice\domain\PaymentEntity.class
-com\ecommerce\paymentservice\web\CreatePaymentRequest.class
-com\ecommerce\paymentservice\web\PaymentController.class

@@ -1,0 +1,92 @@
+# -----------------------------
+# Java / Maven
+# -----------------------------
+**/target/
+**/out/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+
+# Maven wrapper cache (keep scripts and properties)
+.mvn/wrapper/maven-wrapper.jar
+
+# -----------------------------
+# IDE - IntelliJ IDEA
+# -----------------------------
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# -----------------------------
+# IDE - VS Code
+# -----------------------------
+.vscode/
+
+# -----------------------------
+# IDE - Eclipse / STS
+# -----------------------------
+.project
+.classpath
+.settings/
+.factorypath
+.springBeans
+.sts4-cache/
+
+# -----------------------------
+# Build / generated
+# -----------------------------
+**/generated/
+**/generated-sources/
+**/generated-test-sources/
+**/.apt_generated/
+**/.apt_generated_tests/
+
+# -----------------------------
+# Logs
+# -----------------------------
+logs/
+**/logs/
+*.log
+*.tmp
+
+# -----------------------------
+# Environment / secrets
+# -----------------------------
+.env
+.env.*
+!.env.example
+*.local
+*.secret
+
+# -----------------------------
+# Docker / local runtime artifacts
+# -----------------------------
+.docker/
+**/docker-data/
+
+# -----------------------------
+# OS junk
+# -----------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# -----------------------------
+# Test / coverage artifacts
+# -----------------------------
+coverage/
+**/surefire-reports/
+**/failsafe-reports/
+
+# -----------------------------
+# Misc temporary files
+# -----------------------------
+*.swp
+*.swo
+*~
+
